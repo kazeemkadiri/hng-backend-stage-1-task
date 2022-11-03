@@ -22,10 +22,43 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-    
-    console.log('reqbody:', req.body);
 
     const {operation_type, x, y} = req.body;
+
+    // This function parses the operation_type string
+    const parseOpType = opType => {
+        
+        const possibleOpTypes = ['add', 'subtract', 'multiply'];
+        
+        let matchedType = '';
+
+        for(let possibleOpType of possibleOpTypes){
+        
+          if(opType.toLowerCase().indexOf(possibleOpType) > -1){
+
+            switch(possibleOpType){
+                case 'add':
+                    matchedType = 'addition';
+                    break;
+                case 'subtract':
+                    matchedType = 'subtraction';
+                    break;
+                case 'multiply':
+                    matchedType = 'multiplication';
+                break;
+            }
+
+          }  
+          
+          if(matchedType !== ''){
+            break;
+          }
+        }
+        
+        return matchedType;
+    }
+
+    const matchedOpType = parseOpType(operation_type);
 
     // This object serves as the enum for 'operation_type'
     const OperationType = {
@@ -36,7 +69,8 @@ app.post('/', (req, res) => {
 
     let result = 0;
 
-    switch(operation_type){
+    switch(matchedOpType){
+
         case OperationType.Addition:
             result = parseInt(x) + parseInt(y);
             break;
@@ -50,7 +84,7 @@ app.post('/', (req, res) => {
             break;
     }
 
-    return res.status(200).json({ "slackUsername": "kazeemkadiri", result, "operation_type": operation_type }).end();
+    return res.status(200).json({ "slackUsername": "kazeemkadiri", result, "operation_type": matchedOpType }).end();
     
 });
 
