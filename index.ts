@@ -29,9 +29,9 @@ app.post('/', (req: Request, res: Response) => {
 
     // This object serves as the enum for 'operation_type'
     enum OperationEnum {
-        Addition,
-        Subtraction,
-        Multiplication
+        Addition='addition',
+        Subtraction='subtraction',
+        Multiplication='multiplication'
     }
 
     // This function parses the operation_type string
