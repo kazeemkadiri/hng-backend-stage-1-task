@@ -23,6 +23,8 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     
+    console.log('reqbody:', req.body);
+
     const {operation_type, x, y} = req.body;
 
     // This object serves as the enum for 'operation_type'
