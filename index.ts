@@ -24,7 +24,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.post('/', (req: Request, res: Response) => {
-    console.log('Request body: ', req.body);
+    
     const {operation_type, x, y} = req.body;
 
     // This object serves as the enum for 'operation_type'
@@ -71,9 +71,7 @@ app.post('/', (req: Request, res: Response) => {
     }
 
     const matchedOpType = parseOpType(operation_type);
-    console.log('mop', matchedOpType);
     let result = 0;
-
 
     switch(matchedOpType){
         case OperationEnum.Addition:

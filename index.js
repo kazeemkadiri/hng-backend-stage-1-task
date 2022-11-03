@@ -1,10 +1,10 @@
 "use strict";
-exports.__esModule = true;
-var express = require('express');
-var app = express();
+Object.defineProperty(exports, "__esModule", { value: true });
+const express = require('express');
+const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify({
         "slackUsername": 'kazeemkadiri',
@@ -13,23 +13,21 @@ app.get('/', function (req, res) {
         "bio": "Software Engineer (Backend)"
     }));
 });
-app.post('/', function (req, res) {
-    console.log('Request body: ', req.body);
-    var _a = req.body, operation_type = _a.operation_type, x = _a.x, y = _a.y;
+app.post('/', (req, res) => {
+    const { operation_type, x, y } = req.body;
     // This object serves as the enum for 'operation_type'
-    var OperationEnum;
+    let OperationEnum;
     (function (OperationEnum) {
         OperationEnum["Addition"] = "addition";
         OperationEnum["Subtraction"] = "subtraction";
         OperationEnum["Multiplication"] = "multiplication";
     })(OperationEnum || (OperationEnum = {}));
     // This function parses the operation_type string
-    var parseOpType = function (opType) {
-        var possibleOpTypes = ['add', 'sum', 'subtract', 'difference', 'multiply', 'product'];
-        var matchedType = OperationEnum.Addition;
+    const parseOpType = (opType) => {
+        const possibleOpTypes = ['add', 'sum', 'subtract', 'difference', 'multiply', 'product'];
+        let matchedType = OperationEnum.Addition;
         if (typeof opType === 'string') {
-            for (var _i = 0, possibleOpTypes_1 = possibleOpTypes; _i < possibleOpTypes_1.length; _i++) {
-                var possibleOpType = possibleOpTypes_1[_i];
+            for (let possibleOpType of possibleOpTypes) {
                 if (opType.toLowerCase().indexOf(possibleOpType) > -1) {
                     switch (possibleOpType) {
                         case 'sum':
@@ -50,9 +48,8 @@ app.post('/', function (req, res) {
         }
         return matchedType;
     };
-    var matchedOpType = parseOpType(operation_type);
-    console.log('mop', matchedOpType);
-    var result = 0;
+    const matchedOpType = parseOpType(operation_type);
+    let result = 0;
     switch (matchedOpType) {
         case OperationEnum.Addition:
             result = parseInt(x) + parseInt(y);
@@ -68,7 +65,7 @@ app.post('/', function (req, res) {
     }
     return res.status(200).json({ "slackUsername": "kazeemkadiri", "result": result, "operation_type": matchedOpType }).end();
 });
-var PORT = process.env.PORT || 5000;
-app.listen(process.env.PORT || 5000, function () {
-    console.log("server is listening on PORT ".concat(PORT, "."));
+const PORT = process.env.PORT || 5000;
+app.listen(process.env.PORT || 5000, () => {
+    console.log(`server is listening on PORT ${PORT}.`);
 });
