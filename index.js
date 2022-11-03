@@ -19,9 +19,9 @@ app.post('/', (req, res) => {
     // This object serves as the enum for 'operation_type'
     let OperationEnum;
     (function (OperationEnum) {
-        OperationEnum[OperationEnum["Addition"] = 0] = "Addition";
-        OperationEnum[OperationEnum["Subtraction"] = 1] = "Subtraction";
-        OperationEnum[OperationEnum["Multiplication"] = 2] = "Multiplication";
+        OperationEnum["Addition"] = "addition";
+        OperationEnum["Subtraction"] = "subtraction";
+        OperationEnum["Multiplication"] = "multiplication";
     })(OperationEnum || (OperationEnum = {}));
     // This function parses the operation_type string
     const parseOpType = (opType) => {
