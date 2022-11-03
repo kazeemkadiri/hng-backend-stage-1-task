@@ -63,26 +63,9 @@ app.post('/', (req: Request, res: Response) => {
 
                 }  
                 
-                if(matchedType){
-                    break;
-                }
             }
         }
-         // Get the matching opType from OperationEnum
-            console.log('check vall',opType, OperationEnum.Addition);
-            switch(opType){
-                case OperationEnum.Addition:
-                    matchedType = OperationEnum.Addition;
-                    break;
-                case OperationEnum.Subtraction:
-                    matchedType = OperationEnum.Subtraction;
-                    break;
-                case OperationEnum.Multiplication:
-                    matchedType = OperationEnum.Multiplication  ;
-                break;
-                default:
-                    break;
-            }
+        
         
         return matchedType;
     }
@@ -93,7 +76,6 @@ app.post('/', (req: Request, res: Response) => {
 
 
     switch(matchedOpType){
-
         case OperationEnum.Addition:
             result = parseInt(x) + parseInt(y);
             break;
@@ -106,8 +88,6 @@ app.post('/', (req: Request, res: Response) => {
         default:
             break;
     }
-    
-    console.log('Check variables:', result, matchedOpType, x, y);
 
     return res.status(200).json({ "slackUsername": "kazeemkadiri", "result": result, "operation_type": matchedOpType }).end();
     
