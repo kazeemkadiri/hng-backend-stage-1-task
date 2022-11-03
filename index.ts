@@ -37,7 +37,7 @@ app.post('/', (req: Request, res: Response) => {
     // This function parses the operation_type string
     const parseOpType = (opType: string | OperationEnum) => {
         
-        const possibleOpTypes = ['add', 'subtract', 'multiply'];
+        const possibleOpTypes = ['add', 'sum', 'subtract', 'difference', 'multiply', 'product'];
         
         let matchedType: OperationEnum = OperationEnum.Addition;
 
@@ -47,12 +47,15 @@ app.post('/', (req: Request, res: Response) => {
                 if( opType.toLowerCase().indexOf(possibleOpType) > -1){
 
                     switch(possibleOpType){
+                        case 'sum':
                         case 'add':
                             matchedType = OperationEnum.Addition;
                             break;
+                        case 'difference':
                         case 'subtract':
                             matchedType = OperationEnum.Subtraction;
                             break;
+                        case 'product':
                         case 'multiply':
                             matchedType = OperationEnum.Multiplication;
                         break;
@@ -105,8 +108,6 @@ app.post('/', (req: Request, res: Response) => {
     }
     
     console.log('Check variables:', result, matchedOpType, x, y);
-
-
 
     return res.status(200).json({ "slackUsername": "kazeemkadiri", "result": result, "operation_type": matchedOpType }).end();
     

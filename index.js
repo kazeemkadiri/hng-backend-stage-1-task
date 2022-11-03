@@ -25,18 +25,21 @@ app.post('/', (req, res) => {
     })(OperationEnum || (OperationEnum = {}));
     // This function parses the operation_type string
     const parseOpType = (opType) => {
-        const possibleOpTypes = ['add', 'subtract', 'multiply'];
+        const possibleOpTypes = ['add', 'sum', 'subtract', 'difference', 'multiply', 'product'];
         let matchedType = OperationEnum.Addition;
         if (typeof opType === 'string') {
             for (let possibleOpType of possibleOpTypes) {
                 if (opType.toLowerCase().indexOf(possibleOpType) > -1) {
                     switch (possibleOpType) {
+                        case 'sum':
                         case 'add':
                             matchedType = OperationEnum.Addition;
                             break;
+                        case 'difference':
                         case 'subtract':
                             matchedType = OperationEnum.Subtraction;
                             break;
+                        case 'product':
                         case 'multiply':
                             matchedType = OperationEnum.Multiplication;
                             break;
